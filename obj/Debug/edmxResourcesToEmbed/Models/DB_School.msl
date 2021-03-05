@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Alkemy_SchoolModelStoreContainer" CdmEntityContainer="Alkemy_SchoolEntities">
+    <EntitySetMapping Name="Course">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.Course">
+        <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inscription_by_Student">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.Inscription_by_Student">
+        <MappingFragment StoreEntitySet="Inscription_by_Student">
+          <ScalarProperty Name="DNI_Person" ColumnName="DNI_Person" />
+          <ScalarProperty Name="ID_Course" ColumnName="ID_Course" />
+          <ScalarProperty Name="Date_Inscr" ColumnName="Date_Inscr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="Names" ColumnName="Names" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teacher">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.Teacher">
+        <MappingFragment StoreEntitySet="Teacher">
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="IDT" ColumnName="IDT" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timetable">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.Timetable">
+        <MappingFragment StoreEntitySet="Timetable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_Course" ColumnName="ID_Course" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Start_Hour" ColumnName="Start_Hour" />
+          <ScalarProperty Name="End_Hour" ColumnName="End_Hour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Username">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.Username">
+        <MappingFragment StoreEntitySet="Username">
+          <ScalarProperty Name="Docket" ColumnName="Docket" />
+          <ScalarProperty Name="Access" ColumnName="Access" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Teacher_by_Course" TypeName="Alkemy_SchoolModel.Teacher_by_Course" StoreEntitySet="Teacher_by_Course">
+      <EndProperty Name="Course">
+        <ScalarProperty Name="ID" ColumnName="ID_Course" />
+      </EndProperty>
+      <EndProperty Name="Teacher">
+        <ScalarProperty Name="IDT" ColumnName="ID_Teacher" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

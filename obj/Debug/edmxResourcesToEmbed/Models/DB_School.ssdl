@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Alkemy_SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="smallint" Nullable="false" />
+    <Property Name="Course_Name" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Capacity" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Inscription_by_Student">
+    <Key>
+      <PropertyRef Name="DNI_Person" />
+      <PropertyRef Name="ID_Course" />
+    </Key>
+    <Property Name="DNI_Person" Type="int" Nullable="false" />
+    <Property Name="ID_Course" Type="smallint" Nullable="false" />
+    <Property Name="Date_Inscr" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="DNI" />
+    </Key>
+    <Property Name="Names" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Surname" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="DNI" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="IDT" />
+    </Key>
+    <Property Name="DNI" Type="int" Nullable="false" />
+    <Property Name="IDT" Type="smallint" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Teacher_by_Course">
+    <Key>
+      <PropertyRef Name="ID_Teacher" />
+      <PropertyRef Name="ID_Course" />
+    </Key>
+    <Property Name="ID_Teacher" Type="smallint" Nullable="false" />
+    <Property Name="ID_Course" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Timetable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="smallint" Nullable="false" />
+    <Property Name="ID_Course" Type="smallint" Nullable="false" />
+    <Property Name="Day" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Start_Hour" Type="time" Precision="7" Nullable="false" />
+    <Property Name="End_Hour" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Username">
+    <Key>
+      <PropertyRef Name="Docket" />
+    </Key>
+    <Property Name="Docket" Type="int" Nullable="false" />
+    <Property Name="Access" Type="tinyint" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="DNI" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Course_Insc">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Inscription_by_Student" Type="Self.Inscription_by_Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Inscription_by_Student">
+        <PropertyRef Name="ID_Course" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_Time">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Timetable">
+        <PropertyRef Name="ID_Course" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Teacher_by_Course" Type="Self.Teacher_by_Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Teacher_by_Course">
+        <PropertyRef Name="ID_Course" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_Insc">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Inscription_by_Student" Type="Self.Inscription_by_Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="DNI" />
+      </Principal>
+      <Dependent Role="Inscription_by_Student">
+        <PropertyRef Name="DNI_Person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="Teacher_by_Course" Type="Self.Teacher_by_Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="IDT" />
+      </Principal>
+      <Dependent Role="Teacher_by_Course">
+        <PropertyRef Name="ID_Teacher" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teacher_DNI">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="DNI" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="DNI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Username_DNI">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Username" Type="Self.Username" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="DNI" />
+      </Principal>
+      <Dependent Role="Username">
+        <PropertyRef Name="DNI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Alkemy_SchoolModelStoreContainer">
+    <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inscription_by_Student" EntityType="Self.Inscription_by_Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teacher_by_Course" EntityType="Self.Teacher_by_Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Timetable" EntityType="Self.Timetable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Username" EntityType="Self.Username" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Course_Insc" Association="Self.FK_Course_Insc">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Inscription_by_Student" EntitySet="Inscription_by_Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_Time" Association="Self.FK_Course_Time">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Timetable" EntitySet="Timetable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_Course" Association="Self.FK_ID_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Teacher_by_Course" EntitySet="Teacher_by_Course" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_Insc" Association="Self.FK_Person_Insc">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Inscription_by_Student" EntitySet="Inscription_by_Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_Teacher" Association="Self.FK_Person_Teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="Teacher_by_Course" EntitySet="Teacher_by_Course" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teacher_DNI" Association="Self.FK_Teacher_DNI">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Teacher" EntitySet="Teacher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Username_DNI" Association="Self.FK_Username_DNI">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Username" EntitySet="Username" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

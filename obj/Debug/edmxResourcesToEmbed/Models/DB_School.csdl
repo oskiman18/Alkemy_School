@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Alkemy_SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int16" Nullable="false" />
+    <Property Name="Course_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Capacity" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Inscription_by_Student" Relationship="Self.FK_Course_Insc" FromRole="Course" ToRole="Inscription_by_Student" />
+    <NavigationProperty Name="Timetable" Relationship="Self.FK_Course_Time" FromRole="Course" ToRole="Timetable" />
+    <NavigationProperty Name="Teacher" Relationship="Self.Teacher_by_Course" FromRole="Course" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="Inscription_by_Student">
+    <Key>
+      <PropertyRef Name="DNI_Person" />
+      <PropertyRef Name="ID_Course" />
+    </Key>
+    <Property Name="DNI_Person" Type="Int32" Nullable="false" />
+    <Property Name="ID_Course" Type="Int16" Nullable="false" />
+    <Property Name="Date_Inscr" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_Course_Insc" FromRole="Inscription_by_Student" ToRole="Course" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Person_Insc" FromRole="Inscription_by_Student" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="DNI" />
+    </Key>
+    <Property Name="Names" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DNI" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Inscription_by_Student" Relationship="Self.FK_Person_Insc" FromRole="Person" ToRole="Inscription_by_Student" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_Teacher_DNI" FromRole="Person" ToRole="Teacher" />
+    <NavigationProperty Name="Username" Relationship="Self.FK_Username_DNI" FromRole="Person" ToRole="Username" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="IDT" />
+    </Key>
+    <Property Name="DNI" Type="Int32" Nullable="false" />
+    <Property Name="IDT" Type="Int16" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Teacher_DNI" FromRole="Teacher" ToRole="Person" />
+    <NavigationProperty Name="Course" Relationship="Self.Teacher_by_Course" FromRole="Teacher" ToRole="Course" />
+  </EntityType>
+  <EntityType Name="Timetable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int16" Nullable="false" />
+    <Property Name="ID_Course" Type="Int16" Nullable="false" />
+    <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Start_Hour" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="End_Hour" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_Course_Time" FromRole="Timetable" ToRole="Course" />
+  </EntityType>
+  <EntityType Name="Username">
+    <Key>
+      <PropertyRef Name="Docket" />
+    </Key>
+    <Property Name="Docket" Type="Int32" Nullable="false" />
+    <Property Name="Access" Type="Byte" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="DNI" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Username_DNI" FromRole="Username" ToRole="Person" />
+  </EntityType>
+  <Association Name="FK_Course_Insc">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Inscription_by_Student" Type="Self.Inscription_by_Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Inscription_by_Student">
+        <PropertyRef Name="ID_Course" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_Time">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Timetable">
+        <PropertyRef Name="ID_Course" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_Insc">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Inscription_by_Student" Type="Self.Inscription_by_Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="DNI" />
+      </Principal>
+      <Dependent Role="Inscription_by_Student">
+        <PropertyRef Name="DNI_Person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teacher_DNI">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="DNI" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="DNI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Username_DNI">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Username" Type="Self.Username" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="DNI" />
+      </Principal>
+      <Dependent Role="Username">
+        <PropertyRef Name="DNI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Teacher_by_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="*" />
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Alkemy_SchoolEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Course" EntityType="Self.Course" />
+    <EntitySet Name="Inscription_by_Student" EntityType="Self.Inscription_by_Student" />
+    <EntitySet Name="Person" EntityType="Self.Person" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" />
+    <EntitySet Name="Timetable" EntityType="Self.Timetable" />
+    <EntitySet Name="Username" EntityType="Self.Username" />
+    <AssociationSet Name="FK_Course_Insc" Association="Self.FK_Course_Insc">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Inscription_by_Student" EntitySet="Inscription_by_Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_Time" Association="Self.FK_Course_Time">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Timetable" EntitySet="Timetable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_Insc" Association="Self.FK_Person_Insc">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Inscription_by_Student" EntitySet="Inscription_by_Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teacher_DNI" Association="Self.FK_Teacher_DNI">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Teacher" EntitySet="Teacher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Username_DNI" Association="Self.FK_Username_DNI">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Username" EntitySet="Username" />
+    </AssociationSet>
+    <AssociationSet Name="Teacher_by_Course" Association="Self.Teacher_by_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Teacher" EntitySet="Teacher" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
