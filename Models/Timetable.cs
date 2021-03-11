@@ -14,12 +14,21 @@ namespace Alkemy_School.Models
     
     public partial class Timetable
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Timetable()
+        {
+            this.Inscription_by_Student = new HashSet<Inscription_by_Student>();
+            this.Timetable_by_Course = new HashSet<Timetable_by_Course>();
+        }
+    
         public short ID { get; set; }
-        public short ID_Course { get; set; }
-        public string Day { get; set; }
+        public string Day_Trip { get; set; }
         public System.TimeSpan Start_Hour { get; set; }
         public System.TimeSpan End_Hour { get; set; }
     
-        public virtual Course Course { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Inscription_by_Student> Inscription_by_Student { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Timetable_by_Course> Timetable_by_Course { get; set; }
     }
 }

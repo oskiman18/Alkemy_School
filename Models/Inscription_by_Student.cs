@@ -17,8 +17,10 @@ namespace Alkemy_School.Models
         public int DNI_Person { get; set; }
         public short ID_Course { get; set; }
         public System.DateTime Date_Inscr { get; set; }
+        public short ID_Timetable { get; set; }
     
         public virtual Course Course { get; set; }
         public virtual Person Person { get; set; }
+        public virtual Timetable Timetable { get; set; }
     }
 }

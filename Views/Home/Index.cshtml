@@ -1,28 +1,40 @@
 ﻿
+<head>
+    <div class="jumbotron">
+        <h2 style="text-align:center">
+            Bienvenido al SysAcad de Alkemy School
+        </h2>
+        <br />
+        <h4> Por favor, para continuar ingrese su Legajo y </h4>
+        <h4>su numero de Documento </h4>
+    </div>
+</head>
 
-<div class="jumbotron">
-    <h2 style="text-align:center">
-        Bienvenido al SysAcad de Alkemy School
-    </h2>
-</div>
+<body style="text-align:center">
+        <div class="jumbotron">
 
-<div class="body-content">
-    <h3> Por favor, para continuar ponga su Legajo y su numero de Documento </h3>
-    
-    <form action="~/Home/MyPage" method="post">
-        <div class="form-group">
+        <form action="~/Home/CheckLogin" method="post">
+            <div  class="form-group">
 
-            <div>
-            Legajo: <input type="text" name="Docket" value="" />
+                <div>
+                    <label>Legajo:</label>
+                     <input style="vertical-align:middle; background-position-x:left" type="text" name="Docket"  value="" />
                 </div>
-            <div>
-            Documento: <input type="text" name="DNI" value="" />
+                <br />
+                <div>
+                    <label>Documento:</label>
+                    <input style="vertical-align: middle; background-position-x: left" type="password" name="DNI" value="" />
                 </div>
 
+            </div>
+            <button> Ingresar </button>
+
+        </form>
+        <br />
+        <Label style="color:red">@ViewBag.Error</Label>
         </div>
-        <button> Ingresar </button>
 
-    </form>
+</body>
 
 
-</div>
+

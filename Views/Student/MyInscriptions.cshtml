@@ -1,0 +1,50 @@
+﻿@model List<Alkemy_School.Models.VM_Course>
+
+
+<head>
+    <div class="jumbotron">
+
+        <h2>@ViewBag.Title</h2>
+        <h3>Mis Inscripciones</h3>
+
+    </div>
+</head>
+
+
+<body>
+    <a Style="text-align:center" href="~/Student/Index">Volver</a>
+
+    <table class="table table-bordered" style="text-align:center">
+        <thead style="background-color:lightgrey">
+
+            <tr>
+                <td>Nombre</td>
+                <td>Dia</td>
+                <td>Hora de Inicio</td>
+                <td>Hora de Finalizacion</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.Nombre </td>
+                    <td>@item.Dia</td>
+                    <td>@item.Hora_Incial</td>
+                    <td>@item.Hora_Final</td>
+                    <td><a class="btn btn-primary" href="#">Detalles</a></td>
+                    <td><a class="btn btn-danger" href="">Eliminar</a></td>
+                </tr>
+
+            }
+
+
+
+        </tbody>
+    </table>
+</body>

@@ -1,0 +1,70 @@
+﻿@model List<Alkemy_School.Models.VM_Course>
+
+@{
+    ViewBag.Title = "Inscribir";
+}
+
+<head>
+    <div class="jumbotron">
+
+        <h2>@ViewBag.Title</h2>
+        <h3> En que materia se desea anotar?</h3>
+
+    </div>
+</head>
+
+<body>
+    <a Style="text-align:center" href="~/Student/Index">Volver</a>
+
+    <table class="table table-bordered" style="text-align:center">
+        <thead style="background-color:lightgrey">
+
+            <tr>
+                <td>Nombre</td>
+                <td>Vacantes</td>
+                <td> Capacidad</td>
+                <td>Dia</td>
+                <td>Hora de Inicio</td>
+                <td>Hora de Finalizacion</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.Nombre </td>
+
+                    @if (item.Capacidad / 2 > item.Vacantes)
+                    {
+                        <td style="color:red">@item.Vacantes</td>
+
+                    }
+                    else if (item.Vacantes == item.Capacidad)
+                    {
+                        <td style="color:green">@item.Vacantes</td>
+                    }
+                    else
+                    {
+                        <td style="color:orange">@item.Vacantes</td>
+                    }
+                    <td>@item.Capacidad</td>
+                    <td>@item.Dia</td>
+                    <td>@item.Hora_Incial</td>
+                    <td>@item.Hora_Final</td>
+                    <td><a class="btn btn-primary" href="~/Home/Details">Detalles</a></td>
+                    <td><a class="btn btn-success" href="~/Student/Confirm_Insc?IDC=@item.ID_Course&IDT=@item.ID_Timetable">Inscribirse</a></td>
+
+                </tr>
+
+            }
+
+
+
+        </tbody>
+    </table>
+</body>

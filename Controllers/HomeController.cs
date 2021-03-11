@@ -10,40 +10,68 @@ namespace Alkemy_School.Controllers
 {
     public class HomeController : Controller
     {
-        Alkemy_SchoolEntities db = new Alkemy_SchoolEntities();
+
+        SchoolEntities1 db = new SchoolEntities1();
 
 
-
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(string message)
         {
+
+            ViewBag.Error = message;
+            Session["Username"] = null;
+            Session["Person"] = null;
             return View();
         }
 
-        [HttpPost]
-        public ActionResult MyPage(int Docket, int DNI)
+
+
+
+        public ActionResult CheckLogin(string docket, string dni)
         {
-            Session["Username"] = db.Username.ToList().Find(E => E.Docket == Docket);
-            Session["Person"] = db.Person.ToList().Find(E => E.DNI == DNI);
-            string page = "";
-            switch (CheckAdmin(Docket,DNI))
+            string message;
+            if (docket == "" || dni == "")
+
             {
-                case 1:
-                    {
-                        page = "Student";
-                    }; break;
-
-                case 2:
-                    {
-                        page = "Contact";
-                    }; break;
-                case 0:
-                    {
-                        page="Index";
-                    }
-                    break;
+                message = "Falta ingresar Datos";
+                return RedirectToAction("Index", "Home", new { message });
             }
+            try
+            {
+                int Docket = int.Parse(docket);
+                int DNI = int.Parse(dni);
 
-            return RedirectToAction( page, "Home");
+                Session["Username"] = db.Username.ToList().Find(E => E.Docket == Docket);
+                Session["Person"] = db.Person.ToList().Find(E => E.DNI == DNI);
+
+                string page = "";
+                switch (CheckAdmin(Docket, DNI))
+                {
+                    case 1:
+                        {
+                            page = "Student";
+                        }; break;
+
+                    case 2:
+                        {
+                            page = "Admin";
+                        }; break;
+                    case 0:
+                        {
+
+                            page = "Home";
+                        }
+                        break;
+                }
+
+                return RedirectToAction("Index", page);
+
+            }
+            catch (Exception)
+            {
+                message = "Los datos ingresados del tipo valido";
+                return RedirectToAction("Index", "Home", new { message });
+            }
         }
 
         int CheckAdmin(int dock, int DNI)
@@ -63,20 +91,9 @@ namespace Alkemy_School.Controllers
                 return 2;
             }
         }
-        public ActionResult Contact()
+
+        public ActionResult Details()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-
-        public ActionResult Student()
-        {
-            var person = (Person)Session["Person"];
-
-            ViewBag.Title = "Bienvenido " + person.Names;
-
             return View();
         }
     }
