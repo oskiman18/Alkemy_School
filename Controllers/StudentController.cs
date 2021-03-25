@@ -11,15 +11,15 @@ namespace Alkemy_School.Controllers
 {
     public class StudentController : Controller
     {
-        SchoolEntities1 db = new SchoolEntities1();
+        School_Entities db = new School_Entities();
 
-
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(string message)
         {
 
             if (Session["Username"] == null)
             {
-                string message;
+
                 message = "No Has Iniciado Session";
                 return RedirectToAction("Index", "Home", new { message });
             }
@@ -28,6 +28,7 @@ namespace Alkemy_School.Controllers
             {
                 var person = (Person)Session["Person"];
                 ViewBag.Title = "Bienvenido " + person.Names;
+                ViewBag.Action = message;
 
                 return View();
             }
@@ -45,30 +46,77 @@ namespace Alkemy_School.Controllers
             return View(db.VM_Course.ToList());
         }
 
-      
+
         public ActionResult Confirm_Insc()
         {
-            int IDC = Convert.ToInt32(Request.QueryString["IDC"]);
-            int IDT = Convert.ToInt32(Request.QueryString["IDT"]);
-            var item = db.VM_Course.ToList();
-            var Materia = item.Find(e => e.ID_Course == IDC && e.ID_Timetable == IDT);
-            string message = "asda";
+            string message;
+            try
+            {
+                int IDC = Convert.ToInt32(Request.QueryString["IDC"]),
+                 IDT = Convert.ToInt32(Request.QueryString["IDT"]);
+                var item = db.VM_Course.ToList();
+                var Materia = item.Find(e => e.ID_Course == IDC && e.ID_Timetable == IDT);
+                if (Check_Availeable(IDT, IDC) == 1)
+                {
+                    Inscription(IDC, IDT);
+                    message = "Inscripcion Confirmada";
+                    return RedirectToAction("Index", "Student", new { message });
+                }
+                else
+                {
+                    message = "Error Tipo: " + Check_Availeable(IDT, IDC).ToString();
+                    return RedirectToAction("Index", "Student", new { message });
+                }
+            }
+            catch (Exception)
+            {
+                message = "Error en la base de datos";
+                return RedirectToAction("Index", "Student", new { message });
+            }
 
-            return RedirectToAction("Index", "Student", new { message });
         }
 
-        public bool Incription(VM_Course item)
+        public void Inscription(int IDC, int IDT)
         {
+            try
+            {
+                var inscription = new Inscription_by_Student();
+                inscription.DNI_Person = ((Person)Session["Person"]).DNI;
+                inscription.ID_Course = (short)IDC;
+                inscription.ID_Timetable = (short)IDT;
+                inscription.Date_Inscr = DateTime.Now;
+                db.Inscription_by_Student.Add(inscription);
+                db.SaveChanges();
 
-
-            return false;
-
+            }
+            catch (Exception)
+            {
+            }
         }
 
-        public ActionResult AllCourses()
+        private int Check_Availeable(int IDT, int IDC)
         {
-            return View();
+            var person = (Person)Session["Person"];
+            var list_hour = db.Timetable.ToList();
+            var hour = list_hour.Find(e => e.ID == IDT);
+            foreach (var item in db.Inscription_by_Student.ToList())
+            {
+                if (person.DNI == item.DNI_Person && item.ID_Timetable == IDT)
+                {
+                    return 2;
+                }
+                if (person.DNI == item.DNI_Person && item.ID_Course == IDC)
+                {
+                    return 3;
+                }
+
+
+            }
+
+
+            return 1;
         }
+
 
         public ActionResult MyInscriptions()
         {
@@ -91,7 +139,26 @@ namespace Alkemy_School.Controllers
         }
         public ActionResult DeleteInscription()
         {
-            return View();
+            int IDC = Convert.ToInt32(Request.QueryString["IDC"]),
+                IDT = Convert.ToInt32(Request.QueryString["IDT"]),
+                DNI = ((Person)Session["Person"]).DNI;
+            ;
+            var list = db.Inscription_by_Student.ToList();
+            var insc = list.Find(E => E.ID_Course == IDC && E.ID_Timetable == IDT && E.DNI_Person == DNI);
+            db.Inscription_by_Student.Remove(insc);
+            db.SaveChanges();
+            string message = "Inscripcion Eliminada";
+
+            return RedirectToAction("Index", "Student", new { message });
+
         }
+
+        public ActionResult Userinfo()
+        {
+           
+            var item = db.VM_User.ToList().Find(E => E.Documento == ((Person)Session["Person"]).DNI); 
+            return View(item);
+        }
+
     }
 }

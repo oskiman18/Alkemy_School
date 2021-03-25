@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7ee33dd7103049419b7fa90eadba7554" Name="Diagram1">
+        <EntityTypeShape EntityType="SchoolModel.Course" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Inscription_by_Student" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Person" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Teacher" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Timetable" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Timetable_by_Course" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Username" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.VM_Course" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.VM_User" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="SchoolModel.FK_Course_Horary" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolModel.FK_Course_Insc" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolModel.FK_Person_Insc" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolModel.FK_Time_Insc" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolModel.FK_Teacher_DNI" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolModel.FK_Username_DNI" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolModel.FK_Teacher_Horary" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolModel.FK_Timetable_Horary" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

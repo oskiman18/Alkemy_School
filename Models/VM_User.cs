@@ -18,5 +18,7 @@ namespace Alkemy_School.Models
         public string Apellido { get; set; }
         public int Documento { get; set; }
         public int Legajo { get; set; }
+        public int Telefono { get; set; }
+        public string Mail { get; set; }
     }
 }

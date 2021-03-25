@@ -19,7 +19,6 @@ namespace Alkemy_School.Models
         {
             this.Timetable_by_Course = new HashSet<Timetable_by_Course>();
             this.Inscription_by_Student = new HashSet<Inscription_by_Student>();
-            this.Teacher = new HashSet<Teacher>();
         }
     
         public short ID { get; set; }
@@ -29,7 +28,5 @@ namespace Alkemy_School.Models
         public virtual ICollection<Timetable_by_Course> Timetable_by_Course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inscription_by_Student> Inscription_by_Student { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Teacher> Teacher { get; set; }
     }
 }

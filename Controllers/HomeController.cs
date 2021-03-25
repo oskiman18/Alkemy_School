@@ -10,9 +10,8 @@ namespace Alkemy_School.Controllers
 {
     public class HomeController : Controller
     {
-
-        SchoolEntities1 db = new SchoolEntities1();
-
+        School_Entities db = new School_Entities();
+        
 
         [HttpGet]
         public ActionResult Index(string message)
@@ -94,7 +93,12 @@ namespace Alkemy_School.Controllers
 
         public ActionResult Details()
         {
-            return View();
+            int IDC = Convert.ToInt32(Request.QueryString["IDC"]);
+            var list = db.VM_Course.ToList();
+            var item = list.Find(E => E.ID_Course == IDC);
+          
+            
+            return View(item);
         }
     }
 }

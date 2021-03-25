@@ -17,8 +17,10 @@ namespace Alkemy_School.Models
         public short ID_Course { get; set; }
         public short ID_Timetable { get; set; }
         public byte Capacity { get; set; }
+        public short ID_Teacher { get; set; }
     
         public virtual Course Course { get; set; }
+        public virtual Teacher Teacher { get; set; }
         public virtual Timetable Timetable { get; set; }
     }
 }

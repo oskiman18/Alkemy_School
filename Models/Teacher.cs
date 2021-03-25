@@ -17,15 +17,15 @@ namespace Alkemy_School.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Teacher()
         {
-            this.Course = new HashSet<Course>();
+            this.Timetable_by_Course = new HashSet<Timetable_by_Course>();
         }
     
         public int DNI { get; set; }
-        public short IDT { get; set; }
+        public short ID { get; set; }
         public bool Active { get; set; }
     
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Course { get; set; }
+        public virtual ICollection<Timetable_by_Course> Timetable_by_Course { get; set; }
     }
 }

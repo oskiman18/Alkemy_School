@@ -10,7 +10,7 @@ namespace Alkemy_School.Controllers
 {
     public class AdminController : Controller
     {
-        SchoolEntities1 db = new SchoolEntities1();
+        School_Entities db = new School_Entities();
 
         // GET: Admin
         public ActionResult Index()

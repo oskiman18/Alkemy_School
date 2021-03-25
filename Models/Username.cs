@@ -18,6 +18,8 @@ namespace Alkemy_School.Models
         public byte Access { get; set; }
         public bool Active { get; set; }
         public int DNI { get; set; }
+        public int PhoneNumber { get; set; }
+        public string Email { get; set; }
     
         public virtual Person Person { get; set; }
     }

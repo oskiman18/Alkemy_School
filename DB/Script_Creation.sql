@@ -19,6 +19,8 @@ Docket int primary key identity(1000,1),
 Access tinyint not null,
 Active bit not null,
 DNI int not null,
+PhoneNumber int not null,
+Email varchar(100) not null,
 constraint FK_Username_DNI  foreign key (DNI) references Person (DNI)
 )
 
@@ -26,7 +28,7 @@ go
 
 Create table Teacher(
 DNI int not null,
-IDT smallint primary key Identity (1,1),
+ID smallint primary key Identity (1,1),
 Active bit not null
 constraint FK_Teacher_DNI foreign key (DNI) references Person (DNI)
 )
@@ -74,28 +76,11 @@ ADD Constraint FK_Person_Insc foreign key (DNI_Person) references Person(DNI)
 
 go
 
-create table Teacher_by_Course(
-ID_Teacher smallint not null, 
-ID_Course smallint not null,
-primary key (ID_Teacher, ID_Course)
-
-)
-
-go
-
-alter table  Teacher_by_Course
-ADD Constraint FK_Person_Teacher foreign key (ID_Teacher) references Teacher(IDT)
-
-go 
-alter table Teacher_by_Course
-ADD Constraint FK_ID_Course foreign key (ID_Course) references Course(ID)
-
-go
-
 create table Timetable_by_Course(
 ID_Course smallint,
 ID_Timetable smallint,
 Capacity tinyint not null,
+ID_Teacher smallint not null,
 Primary key(ID_Course, ID_Timetable)
 )
 go
@@ -107,3 +92,7 @@ go
 
 alter table Timetable_by_Course
 ADD Constraint FK_Timetable_Horary foreign key (ID_Timetable) references Timetable(ID)
+
+go 
+alter table Timetable_by_Course
+ADD Constraint FK_Teacher_Horary foreign key (ID_Teacher) references Teacher(ID)

@@ -13,10 +13,10 @@ namespace Alkemy_School.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SchoolEntities1 : DbContext
+    public partial class School_Entities : DbContext
     {
-        public SchoolEntities1()
-            : base("name=SchoolEntities1")
+        public School_Entities()
+            : base("name=School_Entities")
         {
         }
     
@@ -32,8 +32,7 @@ namespace Alkemy_School.Models
         public virtual DbSet<Timetable> Timetable { get; set; }
         public virtual DbSet<Timetable_by_Course> Timetable_by_Course { get; set; }
         public virtual DbSet<Username> Username { get; set; }
-        public virtual DbSet<VM_User> VM_User { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<VM_Course> VM_Course { get; set; }
+        public virtual DbSet<VM_User> VM_User { get; set; }
     }
 }

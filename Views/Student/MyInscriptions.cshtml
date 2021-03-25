@@ -37,8 +37,8 @@
                     <td>@item.Dia</td>
                     <td>@item.Hora_Incial</td>
                     <td>@item.Hora_Final</td>
-                    <td><a class="btn btn-primary" href="#">Detalles</a></td>
-                    <td><a class="btn btn-danger" href="">Eliminar</a></td>
+                    <td><a class="btn btn-primary" href="~/Home/Details?IDC=@item.ID_Course">Detalles</a></td>
+                    <td><a class="btn btn-danger" href="~/Student/DeleteInscription?IDC=@item.ID_Course&IDT=@item.ID_Timetable">Eliminar</a></td>
                 </tr>
 
             }

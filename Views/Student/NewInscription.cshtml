@@ -1,7 +1,7 @@
 ﻿@model List<Alkemy_School.Models.VM_Course>
 
 @{
-    ViewBag.Title = "Inscribir";
+    ViewBag.Title = "Nueva Inscripcion";
 }
 
 <head>
@@ -56,7 +56,7 @@
                     <td>@item.Dia</td>
                     <td>@item.Hora_Incial</td>
                     <td>@item.Hora_Final</td>
-                    <td><a class="btn btn-primary" href="~/Home/Details">Detalles</a></td>
+                    <td><a class="btn btn-primary" href="~/Home/Details?IDC=@item.ID_Course">Detalles</a></td>
                     <td><a class="btn btn-success" href="~/Student/Confirm_Insc?IDC=@item.ID_Course&IDT=@item.ID_Timetable">Inscribirse</a></td>
 
                 </tr>

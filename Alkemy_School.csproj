@@ -135,49 +135,46 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Course.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataBase.Context.cs">
+    <Compile Include="Models\DB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataBase.Context.tt</DependentUpon>
+      <DependentUpon>DB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataBase.cs">
+    <Compile Include="Models\DB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataBase.Designer.cs">
+    <Compile Include="Models\DB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataBase.edmx</DependentUpon>
+      <DependentUpon>DB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Inscription_by_Student.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Person.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Teacher.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Timetable.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Timetable_by_Course.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Username.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VM_Course.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VM_User.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -190,24 +187,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DataBase.Context.tt">
+    <Content Include="Models\DB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataBase.edmx</DependentUpon>
-      <LastGenOutput>DataBase.Context.cs</LastGenOutput>
+      <DependentUpon>DB.edmx</DependentUpon>
+      <LastGenOutput>DB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DataBase.tt">
+    <Content Include="Models\DB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataBase.edmx</DependentUpon>
-      <LastGenOutput>DataBase.cs</LastGenOutput>
+      <DependentUpon>DB.edmx</DependentUpon>
+      <LastGenOutput>DB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\DataBase.edmx">
+    <EntityDeploy Include="Models\DB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataBase.Designer.cs</LastGenOutput>
+      <LastGenOutput>DB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DataBase.edmx.diagram">
-      <DependentUpon>DataBase.edmx</DependentUpon>
+    <Content Include="Models\DB.edmx.diagram">
+      <DependentUpon>DB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -238,9 +235,9 @@
     <Content Include="Views\Admin\Manage_Course.cshtml" />
     <Content Include="Views\Admin\Manage_Students.cshtml" />
     <Content Include="Views\Student\NewInscription.cshtml" />
-    <Content Include="Views\Student\AllCourses.cshtml" />
     <Content Include="Views\Student\MyInscriptions.cshtml" />
-    <Content Include="Views\Student\DeleteInscription.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Student\Userinfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

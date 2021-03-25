@@ -1,0 +1,43 @@
+﻿@model Alkemy_School.Models.VM_User
+
+
+<head>
+    <h2>Mi Perfil</h2>
+
+</head>
+
+
+<body>
+
+    <table class="table table-hover">
+
+
+        <tr>
+            <td>  Nombre:</td>
+            <td> @Model.Nombre </td>
+        </tr>
+        <tr>
+            <td>Apellido:</td>
+            <td>@Model.Apellido</td>
+        </tr>
+
+        <tr>
+            <td>DNI:</td>
+            <td>@Model.Documento</td>
+        </tr>
+        <tr>
+            <td>Legajo:</td>
+            <td> @Model.Legajo</td>
+        </tr>
+        <tr>
+            <td>Mail:</td>
+            <td> @Model.Mail</td>
+        </tr>
+        <tr>
+            <td>Telefono: </td>
+            <td>@Model.Telefono</td>
+        </tr>
+    </table>
+    <a href="~/Student/Index" style="" class="btn btn-primary" >Volver</a>
+
+</body>

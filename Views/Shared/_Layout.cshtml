@@ -10,16 +10,15 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-         
-        </div>
+        @if (Session["Username"] == null)
+        {
+            ViewBag.Login = "Iniciar Sesion";
+        }
+        else { ViewBag.Login = "Cerrar Sesion"; }
+
+
+        <a href="~/Home/Index" class="btn btn-primary" style="float:right; background-color:grey; border-color:black; margin-right:10px; margin-top:8px;">@ViewBag.Login</a>
+    
     </div>
     <div class="container body-content">
         @RenderBody()

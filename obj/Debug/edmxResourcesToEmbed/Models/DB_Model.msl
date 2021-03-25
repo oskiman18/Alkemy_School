@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Alkemy_SchoolModelStoreContainer" CdmEntityContainer="SchoolEntities1">
-    <EntitySetMapping Name="Course">
+  <EntityContainerMapping StorageEntityContainer="Alkemy_SchoolModelStoreContainer" CdmEntityContainer="Alkemy_SchoolEntities2">
+    <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="Alkemy_SchoolModel.Course">
         <MappingFragment StoreEntitySet="Course">
           <ScalarProperty Name="ID" ColumnName="ID" />
@@ -19,7 +19,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Person">
+    <EntitySetMapping Name="People">
       <EntityTypeMapping TypeName="Alkemy_SchoolModel.Person">
         <MappingFragment StoreEntitySet="Person">
           <ScalarProperty Name="Names" ColumnName="Names" />
@@ -28,7 +28,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Teacher">
+    <EntitySetMapping Name="Teachers">
       <EntityTypeMapping TypeName="Alkemy_SchoolModel.Teacher">
         <MappingFragment StoreEntitySet="Teacher">
           <ScalarProperty Name="DNI" ColumnName="DNI" />
@@ -37,7 +37,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Timetable">
+    <EntitySetMapping Name="Timetables">
       <EntityTypeMapping TypeName="Alkemy_SchoolModel.Timetable">
         <MappingFragment StoreEntitySet="Timetable">
           <ScalarProperty Name="ID" ColumnName="ID" />
@@ -56,6 +56,44 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Usernames">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.Username">
+        <MappingFragment StoreEntitySet="Username">
+          <ScalarProperty Name="Docket" ColumnName="Docket" />
+          <ScalarProperty Name="Access" ColumnName="Access" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VM_Course">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.VM_Course">
+        <MappingFragment StoreEntitySet="VM_Course">
+          <ScalarProperty Name="ID_Course" ColumnName="ID_Course" />
+          <ScalarProperty Name="ID_Timetable" ColumnName="ID_Timetable" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+          <ScalarProperty Name="Vacantes" ColumnName="Vacantes" />
+          <ScalarProperty Name="Dia" ColumnName="Dia" />
+          <ScalarProperty Name="Hora_Incial" ColumnName="Hora_Incial" />
+          <ScalarProperty Name="Hora_Final" ColumnName="Hora_Final" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VM_User">
+      <EntityTypeMapping TypeName="Alkemy_SchoolModel.VM_User">
+        <MappingFragment StoreEntitySet="VM_User">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Documento" ColumnName="Documento" />
+          <ScalarProperty Name="Legajo" ColumnName="Legajo" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="Teacher_by_Course" TypeName="Alkemy_SchoolModel.Teacher_by_Course" StoreEntitySet="Teacher_by_Course">
       <EndProperty Name="Course">
         <ScalarProperty Name="ID" ColumnName="ID_Course" />
@@ -64,43 +102,5 @@
         <ScalarProperty Name="IDT" ColumnName="ID_Teacher" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="VM_Course">
-      <EntityTypeMapping TypeName="Alkemy_SchoolModel.VM_Course">
-        <MappingFragment StoreEntitySet="VM_Course">
-          <ScalarProperty Name="Hora_Final" ColumnName="Hora_Final" />
-          <ScalarProperty Name="Hora_Incial" ColumnName="Hora_Incial" />
-          <ScalarProperty Name="Dia" ColumnName="Dia" />
-          <ScalarProperty Name="Vacantes" ColumnName="Vacantes" />
-          <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="ID_Timetable" ColumnName="ID_Timetable" />
-          <ScalarProperty Name="ID_Course" ColumnName="ID_Course" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Username">
-      <EntityTypeMapping TypeName="Alkemy_SchoolModel.Username">
-        <MappingFragment StoreEntitySet="Username">
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="DNI" ColumnName="DNI" />
-          <ScalarProperty Name="Active" ColumnName="Active" />
-          <ScalarProperty Name="Access" ColumnName="Access" />
-          <ScalarProperty Name="Docket" ColumnName="Docket" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="VM_User">
-      <EntityTypeMapping TypeName="Alkemy_SchoolModel.VM_User">
-        <MappingFragment StoreEntitySet="VM_User">
-          <ScalarProperty Name="Mail" ColumnName="Mail" />
-          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-          <ScalarProperty Name="Legajo" ColumnName="Legajo" />
-          <ScalarProperty Name="Documento" ColumnName="Documento" />
-          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

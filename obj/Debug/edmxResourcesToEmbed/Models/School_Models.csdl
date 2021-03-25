@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Alkemy_SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Course">
     <Key>
       <PropertyRef Name="ID" />
@@ -33,17 +33,18 @@
     <Property Name="DNI" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Inscription_by_Student" Relationship="Self.FK_Person_Insc" FromRole="Person" ToRole="Inscription_by_Student" />
     <NavigationProperty Name="Teacher" Relationship="Self.FK_Teacher_DNI" FromRole="Person" ToRole="Teacher" />
-    <NavigationProperty Name="Username" Relationship="Alkemy_SchoolModel.FK_Username_DNI" FromRole="Person" ToRole="Username" />
+    <NavigationProperty Name="Username" Relationship="Self.FK_Username_DNI" FromRole="Person" ToRole="Username" />
   </EntityType>
   <EntityType Name="Teacher">
     <Key>
-      <PropertyRef Name="IDT" />
+      <PropertyRef Name="ID" />
     </Key>
     <Property Name="DNI" Type="Int32" Nullable="false" />
-    <Property Name="IDT" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Active" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Person" Relationship="Self.FK_Teacher_DNI" FromRole="Teacher" ToRole="Person" />
     <NavigationProperty Name="Course" Relationship="Self.Teacher_by_Course" FromRole="Teacher" ToRole="Course" />
+    <Property Name="ID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Timetable_by_Course" Relationship="SchoolModel.FK_Teacher_Horary" FromRole="Teacher" ToRole="Timetable_by_Course" />
   </EntityType>
   <EntityType Name="Timetable">
     <Key>
@@ -66,6 +67,55 @@
     <Property Name="Capacity" Type="Byte" Nullable="false" />
     <NavigationProperty Name="Course" Relationship="Self.FK_Course_Horary" FromRole="Timetable_by_Course" ToRole="Course" />
     <NavigationProperty Name="Timetable" Relationship="Self.FK_Timetable_Horary" FromRole="Timetable_by_Course" ToRole="Timetable" />
+    <Property Name="ID_Teacher" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Teacher" Relationship="SchoolModel.FK_Teacher_Horary" FromRole="Timetable_by_Course" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="Username">
+    <Key>
+      <PropertyRef Name="Docket" />
+    </Key>
+    <Property Name="Docket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Access" Type="Byte" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="DNI" Type="Int32" Nullable="false" />
+    <Property Name="PhoneNumber" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Username_DNI" FromRole="Username" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="VM_Course">
+    <Key>
+      <PropertyRef Name="ID_Course" />
+      <PropertyRef Name="ID_Timetable" />
+      <PropertyRef Name="Nombre" />
+      <PropertyRef Name="Capacidad" />
+      <PropertyRef Name="Dia" />
+      <PropertyRef Name="Hora_Incial" />
+      <PropertyRef Name="Hora_Final" />
+    </Key>
+    <Property Name="ID_Course" Type="Int16" Nullable="false" />
+    <Property Name="ID_Timetable" Type="Int16" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Capacidad" Type="Byte" Nullable="false" />
+    <Property Name="Vacantes" Type="Int32" />
+    <Property Name="Dia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Hora_Incial" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Hora_Final" Type="Time" Nullable="false" Precision="7" />
+  </EntityType>
+  <EntityType Name="VM_User">
+    <Key>
+      <PropertyRef Name="Nombre" />
+      <PropertyRef Name="Apellido" />
+      <PropertyRef Name="Documento" />
+      <PropertyRef Name="Legajo" />
+      <PropertyRef Name="Telefono" />
+      <PropertyRef Name="Mail" />
+    </Key>
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Documento" Type="Int32" Nullable="false" />
+    <Property Name="Legajo" Type="Int32" Nullable="false" />
+    <Property Name="Telefono" Type="Int32" Nullable="false" />
+    <Property Name="Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
   <Association Name="FK_Course_Horary">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
@@ -127,6 +177,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Username_DNI">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Username" Type="Self.Username" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="DNI" />
+      </Principal>
+      <Dependent Role="Username">
+        <PropertyRef Name="DNI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Timetable_Horary">
     <End Role="Timetable" Type="Self.Timetable" Multiplicity="1" />
     <End Role="Timetable_by_Course" Type="Self.Timetable_by_Course" Multiplicity="*" />
@@ -143,13 +205,16 @@
     <End Role="Course" Type="Self.Course" Multiplicity="*" />
     <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="SchoolEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Course" EntityType="Self.Course" />
     <EntitySet Name="Inscription_by_Student" EntityType="Self.Inscription_by_Student" />
     <EntitySet Name="Person" EntityType="Self.Person" />
     <EntitySet Name="Teacher" EntityType="Self.Teacher" />
     <EntitySet Name="Timetable" EntityType="Self.Timetable" />
     <EntitySet Name="Timetable_by_Course" EntityType="Self.Timetable_by_Course" />
+    <EntitySet Name="Username" EntityType="Self.Username" />
+    <EntitySet Name="VM_Course" EntityType="Self.VM_Course" />
+    <EntitySet Name="VM_User" EntityType="Self.VM_User" />
     <AssociationSet Name="FK_Course_Horary" Association="Self.FK_Course_Horary">
       <End Role="Course" EntitySet="Course" />
       <End Role="Timetable_by_Course" EntitySet="Timetable_by_Course" />
@@ -170,6 +235,10 @@
       <End Role="Person" EntitySet="Person" />
       <End Role="Teacher" EntitySet="Teacher" />
     </AssociationSet>
+    <AssociationSet Name="FK_Username_DNI" Association="Self.FK_Username_DNI">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Username" EntitySet="Username" />
+    </AssociationSet>
     <AssociationSet Name="FK_Timetable_Horary" Association="Self.FK_Timetable_Horary">
       <End Role="Timetable" EntitySet="Timetable" />
       <End Role="Timetable_by_Course" EntitySet="Timetable_by_Course" />
@@ -178,81 +247,20 @@
       <End Role="Course" EntitySet="Course" />
       <End Role="Teacher" EntitySet="Teacher" />
     </AssociationSet>
-    <EntitySet Name="sysdiagrams" EntityType="Alkemy_SchoolModel.sysdiagrams" />
-    <EntitySet Name="VM_Course" EntityType="Alkemy_SchoolModel.VM_Course" />
-    <EntitySet Name="Username" EntityType="Alkemy_SchoolModel.Username" />
-    <EntitySet Name="VM_User" EntityType="Alkemy_SchoolModel.VM_User" />
-    <AssociationSet Name="FK_Username_DNI" Association="Alkemy_SchoolModel.FK_Username_DNI">
-      <End Role="Person" EntitySet="Person" />
-      <End Role="Username" EntitySet="Username" />
+    <AssociationSet Name="FK_Teacher_Horary" Association="SchoolModel.FK_Teacher_Horary">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="Timetable_by_Course" EntitySet="Timetable_by_Course" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <EntityType Name="VM_Course">
-    <Key>
-      <PropertyRef Name="ID_Course" />
-      <PropertyRef Name="ID_Timetable" />
-      <PropertyRef Name="Nombre" />
-      <PropertyRef Name="Capacidad" />
-      <PropertyRef Name="Dia" />
-      <PropertyRef Name="Hora_Incial" />
-      <PropertyRef Name="Hora_Final" />
-    </Key>
-    <Property Name="ID_Course" Type="Int16" Nullable="false" />
-    <Property Name="ID_Timetable" Type="Int16" Nullable="false" />
-    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="Capacidad" Type="Byte" Nullable="false" />
-    <Property Name="Vacantes" Type="Int32" />
-    <Property Name="Dia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Hora_Incial" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="Hora_Final" Type="Time" Nullable="false" Precision="7" />
-  </EntityType>
-  <EntityType Name="Username">
-    <Key>
-      <PropertyRef Name="Docket" />
-    </Key>
-    <Property Name="Docket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Access" Type="Byte" Nullable="false" />
-    <Property Name="Active" Type="Boolean" Nullable="false" />
-    <Property Name="DNI" Type="Int32" Nullable="false" />
-    <Property Name="PhoneNumber" Type="Int32" Nullable="false" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Person" Relationship="Alkemy_SchoolModel.FK_Username_DNI" FromRole="Username" ToRole="Person" />
-  </EntityType>
-  <EntityType Name="VM_User">
-    <Key>
-      <PropertyRef Name="Nombre" />
-      <PropertyRef Name="Apellido" />
-      <PropertyRef Name="Documento" />
-      <PropertyRef Name="Legajo" />
-      <PropertyRef Name="Telefono" />
-      <PropertyRef Name="Mail" />
-    </Key>
-    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Documento" Type="Int32" Nullable="false" />
-    <Property Name="Legajo" Type="Int32" Nullable="false" />
-    <Property Name="Telefono" Type="Int32" Nullable="false" />
-    <Property Name="Mail" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <Association Name="FK_Username_DNI">
-    <End Type="Alkemy_SchoolModel.Person" Role="Person" Multiplicity="1" />
-    <End Type="Alkemy_SchoolModel.Username" Role="Username" Multiplicity="*" />
+  <Association Name="FK_Teacher_Horary">
+    <End Type="SchoolModel.Teacher" Role="Teacher" Multiplicity="1" />
+    <End Type="SchoolModel.Timetable_by_Course" Role="Timetable_by_Course" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="DNI" />
+      <Principal Role="Teacher">
+        <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Username">
-        <PropertyRef Name="DNI" />
+      <Dependent Role="Timetable_by_Course">
+        <PropertyRef Name="ID_Teacher" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
